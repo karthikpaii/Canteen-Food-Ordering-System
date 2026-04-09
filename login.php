@@ -20,7 +20,7 @@ if (isset($_POST['submit'])) {
             $row = mysqli_fetch_assoc($result);
 
             if ($row['password'] == $password) {
-                echo "<h1 style='position:fixed; left:40%; top:25%;'>Login Successful</h1>";
+                header("Location:admin_dashboard.php");
             } else {
                 echo "<h1 style='position:fixed; left:40%; top:25%;'>Password is wrong</h1>";
             }
