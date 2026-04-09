@@ -132,7 +132,6 @@ if (isset($_POST['submit'])) {
             text-decoration: underline;
         }
 
-        /* Footer */
         footer {
             background: #0d47a1;
             color: white;
@@ -144,7 +143,7 @@ if (isset($_POST['submit'])) {
             font-size: 14px;
         }
 
-        /* Error Message */
+     
         .error {
             text-align: center;
             color: red;
@@ -221,7 +220,7 @@ if (isset($_POST['submit'])) {
             msg.style.opacity = '0';
             setTimeout(() => msg.remove(), 500);
         }
-    }, 3000); // disappears after 3 seconds
+    }, 3000); 
 </script>
 </body>
 </html>

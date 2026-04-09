@@ -126,14 +126,14 @@ if (isset($_POST['submit'])) {
             text-decoration: underline;
         }
 
-        /* Messages */
+       
         .success {
             text-align: center;
             color: green;
             margin-top: 10px;
         }
 
-        /* Footer */
+       
         footer {
             background: #0d47a1;
             color: white;
@@ -147,24 +147,24 @@ if (isset($_POST['submit'])) {
 
 
         .message {
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    text-align: center;
-    font-weight: bold;
-    opacity: 1;
-    transition: opacity 0.5s ease;
-}
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
 
-.message.error {
-    background: #ffcccc;
-    color: #b30000;
-}
+        .message.error {
+            background: #ffcccc;
+            color: #b30000;
+        }
 
-.message.success {
-    background: #ccffcc;
-    color: #006600;
-}
+        .message.success {
+            background: #ccffcc;
+            color: #006600;
+        }
     </style>
 </head>
 
