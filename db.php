@@ -14,9 +14,4 @@ if(!$conn)
         echo "Error: {$conn->connect_error}";
     }
 
-    else
-        {
-            echo "Connected Succesfully";
-        }
-
 ?>
