@@ -18,6 +18,7 @@ if (isset($_POST['submit'])) {
         $message_type = "error";
     } else {
         $message = "Registered Successfully!";
+        header("Location:user_dashboard.php"); 
         $message_type = "success";
     }
 }

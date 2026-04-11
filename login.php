@@ -35,7 +35,7 @@ if (isset($_POST['submit'])) {
 
                            if($_SESSION['user_type']=="user")
                             {
-                              echo "Go for User Dashboard";  
+                              header("Location:user_dashboard.php");
                             } 
                     }
                 
