@@ -21,7 +21,24 @@ if (isset($_POST['submit'])) {
             $row = mysqli_fetch_assoc($result);
 
             if ($row['password'] == $password) {
-                header("Location:admin_dashboard.php");
+                session_start();
+                $_SESSION['user_id']=$row['id'];
+                $_SESSION['user_type']= $row['type'];
+
+
+                if($_SESSION['user_id'])
+                    {
+                         if($_SESSION['user_type']=="admin")
+                            {
+                                header("Location:admin_dashboard.php");
+                            }
+
+                           if($_SESSION['user_type']=="user")
+                            {
+                              echo "Go for User Dashboard";  
+                            } 
+                    }
+                
             } else {
                  $message = "Email or Password is wrong";
                  $message_type = "error";
@@ -220,7 +237,7 @@ if (isset($_POST['submit'])) {
             msg.style.opacity = '0';
             setTimeout(() => msg.remove(), 500);
         }
-    }, 3000); 
+    }, 3000); >
 </script>
 </body>
 </html>

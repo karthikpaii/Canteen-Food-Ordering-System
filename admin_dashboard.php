@@ -1,3 +1,25 @@
+<?php 
+
+session_start();
+if(isset($_SESSION['user_id']))
+    {
+        if($_SESSION['user_id'])
+                    {
+                         if($_SESSION['user_type']=="admin")
+                            {
+                               
+                            }
+
+                           if($_SESSION['user_type']=="user")
+                            {
+                              echo "Go for User Dashboard";  
+                            } 
+                    }
+                    else{
+                        header("Location:login.php");
+                    }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,8 +53,8 @@
 
         .sidebar a{
             text-decoration:none;
-            disply:block;
-            padding:10px;
+            display:block;
+            padding:30px 10px;
             margin:0;
             color:white;
             
@@ -51,17 +73,19 @@
 
         .main{
             margin-left:300px;
-            margin-top:20px;
+            margin-top:20px;l
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <a href="#">Log Out</a>
+        <a href="logout.php">Log Out</a>
     </div>
 
     <div class="sidebar">
         <a href="admin_dashboard.php">Admin Dashboard</a>
+        <a href="#">Add Menu Items</a>
+        <a href="#">View Menu Items</a>
     </div>
 
 
