@@ -37,7 +37,6 @@ if(isset($_SESSION['user_id']))
             background:black;
             color:white;
             text-align:right;
-;
         }
 
         .sidebar{
