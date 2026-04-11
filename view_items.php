@@ -1,13 +1,24 @@
 <?php 
 
 session_start();
+
+include "db.php";
 if(isset($_SESSION['user_id']))
     {
-        if($_SESSION['user_id'])
-                    {
+    
                          if($_SESSION['user_type']=="admin")
                             {
-                               
+                                $sql="SELECT * from menu_items";
+
+                                $result=mysqli_query($conn,$sql);
+
+                                if(!$result)
+                                    {
+                                        echo "Error!: {$conn->error}";
+                                    }
+                                    else{
+
+                                    }
                             }
 
                            if($_SESSION['user_type']=="user")
@@ -18,7 +29,7 @@ if(isset($_SESSION['user_id']))
                     else{
                         header("Location:login.php");
                     }
-    }
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,6 +41,7 @@ if(isset($_SESSION['user_id']))
         *{
             padding:0;
             margin:0;
+            overflow-x:hidden;
         }
 
         .header{
@@ -72,7 +84,37 @@ if(isset($_SESSION['user_id']))
 
         .main{
             margin-left:300px;
-            margin-top:20px;l
+            margin-top:20px;
+
+        }
+
+        .main tr:nth-child(even)
+        {
+            background:gray;
+        }
+
+        .main tr:nth-child(odd)
+        {
+            background:lightgray;
+        }
+
+        .main table
+        {
+            width:100px;
+            border-collapse:collapse;
+            text-align:center;
+
+        }
+
+        .main th,td
+        {
+            padding:10px;
+        }
+
+        .main th{
+
+         background:lightblue;
+         color:white;
         }
     </style>
 </head>
@@ -89,8 +131,34 @@ if(isset($_SESSION['user_id']))
 
 
     <div class="main">
-        Lorem, Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente ut, recusandae illum assumenda voluptatem alias id repellendus, reprehenderit tenetur consectetur, excepturi nesciunt quo? Dicta sed culpa temporibus cupiditate, aspernatur officiis at dolorem veniam voluptatem, dolor maiores eius, debitis labore? At suscipit dicta dolorem voluptates vitae incidunt tempora velit adipisci. Voluptatibus nesciunt corrupti similique quos itaque! Deserunt sapiente error tenetur commodi repellendus minus est aspernatur delectus nisi laborum iusto ad rerum, molestiae quasi odio. Voluptates nulla eaque commodi exercitationem culpa alias aut dolore necessitatibus, consectetur eos distinctio odit ea debitis sapiente fugit fuga consequuntur illum voluptatum vel delectus maxime molestias hic vitae. Unde dignissimos quisquam aut rem vitae reprehenderit quod cupiditate pariatur. Ullam quis harum distinctio eum quisquam ab! Fuga deleniti nesciunt nobis dolore blanditiis nam veniam distinctio eum earum, tempora quisquam repudiandae nihil, commodi animi labore quidem nisi dicta magnam repellendus beatae reprehenderit sequi, quas asperiores corporis? Velit magnam rerum inventore dignissimos, qui voluptatibus, autem, perferendis voluptatem aperiam facilis cupiditate omnis eligendi quam deleniti laudantium ducimus consequuntur consectetur dolore molestias maxime. Praesentium, doloremque nesciunt. Ducimus ex ipsum, sit velit consequatur labore ipsam nisi rerum deserunt dolore vitae eligendi quasi, exercitationem quos assumenda laudantium laboriosam. Illo impedit culpa, nesciunt maxime explicabo ipsam facere, perferendis commodi voluptates facilis eaque distinctio cum, enim laudantium labore sunt libero! Et voluptatum vel tenetur modi minima corporis sed possimus? Corporis perspiciatis, similique consectetur iste quisquam nihil, commodi distinctio dignissimos neque alias ab odio voluptatem. Facere quaerat iste eius, voluptas aspernatur earum, ipsam nihil dolorem, corrupti possimus recusandae. Quas expedita quasi voluptate ab velit nisi totam doloremque eligendi voluptatibus ea, quae repellendus repellat ipsa quia fugiat, mollitia excepturi minima dolore tempora ducimus est deleniti itaque adipisci! Aliquam nam vitae incidunt nihil est? Repudiandae voluptas, sequi distinctio vitae aut esse doloremque voluptate sunt veritatis rerum eum! Aspernatur ut maiores tempore? Laboriosam autem incidunt atque quasi, id explicabo totam neque pariatur et sunt, dicta quaerat tempora ullam. Iusto repudiandae molestias iste voluptatum repellat inventore reprehenderit esse quod rem illum quos excepturi, qui quisquam accusamus delectus distinctio, nihil tempora.um dolor sit amet consectetur adipisicing elit. Repellat quas ipsum vero esse fugit, recusandae suscipit aut adipisci cum corrupti nobis maxime culpa fugiat soluta tempore iure neque dolore facere?
-    </div>
+    
+    <table>
+        <thead>
+            <th>Id</th>
+           <th>image</th>
+            <th>Item Name</th>
+            <th>Item Price</th>
+            <th>Item Category</th>
+        </thead>
+
+        <tbody>
+
+        <?php  while($row=mysqli_fetch_assoc($result))
+            { ?>
+                
+            <tr>
+              <td><?php echo $row['id'];?></td>
+              <td><img style="width:100px;" src="image/<?php echo $row['image'];?>"></td>
+              <td><?php echo $row['name'];?></td>
+              <td><?php echo $row['price'];?></td>
+              <td><?php echo $row['category'];?></td>
+            </tr>
+                
+        
+           <?php } ?>
+        </tbody>
+    </table>
+</div>
 
 
 </body>
