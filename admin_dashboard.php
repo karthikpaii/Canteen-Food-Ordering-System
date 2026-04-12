@@ -39,7 +39,7 @@ if(isset($_SESSION['user_id']))
 
 /* Body */
 body{
-    display:flex;
+    
     background:#f4f6f9;
 }
 
@@ -102,14 +102,13 @@ body{
     border-radius:20px;
 }
 
-/* Main Content */
+
 .main{
     margin-left:250px;
     margin-top:80px;
     padding:20px;
 }
 
-/* Cards (optional dashboard blocks) */
 .card-container{
     display:flex;
     gap:20px;
@@ -134,7 +133,7 @@ body{
     margin-bottom:10px;
 }
 
-/* Content text */
+
 .main p{
     margin-top:20px;
     line-height:1.6;
@@ -162,7 +161,7 @@ body{
 <!-- Main Content -->
 <div class="main">
 
-    <!-- Optional Dashboard Cards -->
+   
     <div class="card-container">
         <div class="card">
             <h3>Total Items</h3>
@@ -175,16 +174,14 @@ body{
         </div>
 
         <div class="card">
-            <h3>Users</h3>
-            <p>Manage registered users</p>
+            <h3>Update</h3>
+            <p>Update Order Status</p>
         </div>
     </div>
 
     
 
 </div>
-<p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente ut, recusandae illum assumenda voluptatem alias id repellendus...
-    </p>
+
 </body>
 </html>
