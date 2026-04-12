@@ -25,7 +25,8 @@ if(isset($_SESSION['user_id']))
                 menu_items.category,
 
                 orders.id AS order_id,
-                orders.status
+                orders.status,
+                orders.order_date
 
                 FROM orders 
                 JOIN users ON orders.customer_id = users.id  
@@ -55,6 +56,19 @@ else{
     header("Location:login.php");
     exit();
 }
+
+if(isset($_GET['delete_id'])){
+    $order_id = $_GET['delete_id'];
+
+    $delete = "DELETE FROM orders WHERE id='$order_id'";
+
+    if(mysqli_query($conn, $delete)){
+        header("Location:view_user_orders.php");
+        exit();
+    } else {
+        echo "Error deleting order";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -75,7 +89,7 @@ else{
 
 /* Body */
 body{
-    display:flex;
+  
     background:#f4f6f9;
 }
 
@@ -207,7 +221,7 @@ td img{
     <h2>User Panel</h2>
     <a href="user_dashboard.php">Dashboard</a>
     <a href="view_user_orders.php">View Orders</a>
-    <a href="items.php">Items</a>
+    <a href="items.php">Menu Items</a>
 </div>
 
 <!-- Header -->
@@ -236,9 +250,10 @@ td img{
     <th>Item Name</th>
     <th>Category</th>
     <th>Price</th>
-
+    <th>Order Date</th>
     <th>Order ID</th>
     <th>Status</th>
+    <th>Cancel</th>
 </tr>
 </thead>
 
@@ -261,13 +276,33 @@ while($row = mysqli_fetch_assoc($result)) {
     <td><?php echo $row['item_name'];?></td>
     <td><?php echo $row['category'];?></td>
     <td>₹<?php echo $row['price'];?></td>
-
+    <td>
+     <?php echo date("d-m-Y h:i A", strtotime($row['order_date'])); ?>
+</td>
     <td><?php echo $row['order_id'];?></td>
     <td>
         <span class="status <?php echo strtolower($row['status']); ?>">
             <?php echo ucfirst($row['status']); ?>
         </span>
     </td>
+    <td>
+<?php if($row['status'] == 'pending'){ ?>
+    
+    <a href="view_user_orders.php?delete_id=<?php echo $row['order_id']; ?>" 
+       onclick="return confirm('Are you sure to cancel this item?')"
+       style="background:red; color:white; padding:5px 10px; border-radius:5px; text-decoration:none;">
+       Cancel
+    </a>
+
+<?php } else { ?>
+
+    <button disabled 
+        style="background:gray; color:white; padding:5px 10px; border-radius:5px; border:none; cursor:not-allowed;">
+        Cancel
+    </button>
+
+<?php } ?>
+</td>
 </tr>
 
 <?php 

@@ -171,7 +171,7 @@ body{
     <h2>User Panel</h2>
     <a href="user_dashboard.php">Dashboard</a>
     <a href="view_user_orders.php">view Orders</a>
-    <a href="items.php">Items</a>
+    <a href="items.php">Menu Items</a>
     
 </div>
 

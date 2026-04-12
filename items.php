@@ -58,7 +58,7 @@ if (!$result) {
 
 /* Body */
 body{
-    display:flex;
+ 
     background:#f4f6f9;
 }
 
@@ -143,6 +143,7 @@ body{
     text-align:center;
     box-shadow:0 5px 15px rgba(0,0,0,0.1);
     transition:0.3s;
+  
 }
 
 .card:hover{
@@ -194,7 +195,7 @@ body{
     <h2>User Panel</h2>
     <a href="user_dashboard.php">Dashboard</a>
     <a href="view_user_orders.php">View Orders</a>
-    <a href="items.php">Items</a>
+    <a href="items.php">Menu Items</a>
 </div>
 
 <!-- Header -->
