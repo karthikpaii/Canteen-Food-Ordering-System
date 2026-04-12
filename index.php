@@ -170,7 +170,13 @@ h2{
 <header class="header">
     <h1>🍽️ Order Your Favourite Item</h1>
 </header>
-
+<?php if(isset($_GET['added_message'])){
+                
+                $message=$_GET['added_message'];
+                ?>
+                <p> <?php echo $message; ?></p>
+                
+                <?php } ?>
 <section class="product">
 
 <?php 
@@ -178,12 +184,13 @@ if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
 ?>
         <div class="card">
+            
             <img src="image/<?php echo $row['image']; ?>">
             <h3><?php echo htmlspecialchars($row['name']); ?></h3>
             <p>₹<?php echo htmlspecialchars($row['price']); ?></p>
 
             <?php if(isset($_SESSION['user_id'])){?>
-                <a href="#">Order Now</a>
+                <a href="order_item.php?user_id=<?php echo $_SESSION['user_id'] ?> & menu_id=<?php echo $row['id']; ?>">Order Now</a>
             <?php } ?>
 
             <?php if(!isset($_SESSION['user_id'])){?>
