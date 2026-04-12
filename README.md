@@ -27,3 +27,10 @@ A full-stack Canteen Management System developed with PHP and MySQL that allows 
 <img width="1906" height="907" alt="Screenshot 2026-04-12 132428" src="https://github.com/user-attachments/assets/b528990c-38da-4d81-9481-6d82a67f71f0" />
 <img width="1901" height="902" alt="Screenshot 2026-04-12 132414" src="https://github.com/user-attachments/assets/9a59ac95-72db-47fd-b537-ec5a73b6550e" />
 <img width="1893" height="910" alt="Screenshot 2026-04-12 132359" src="https://github.com/user-attachments/assets/168f8928-57c2-4a3b-b51c-5a6115407bba" />
+
+## 🎥 Demo Video
+
+Watch the project in action:
+
+[![Watch the demo](https://img.youtube.com/vi/DUxjCVti7s4/0.jpg)](https://youtu.be/DUxjCVti7s4)
+
