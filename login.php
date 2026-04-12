@@ -192,7 +192,7 @@ if (isset($_POST['submit'])) {
 <body>
 
 <header>
-    <div class="logo">🍽️ Canteen Management System</div>
+    <div class="logo">🍽️ Palakki Canteen</div>
     <nav>
         <a href="index.php">Home</a>
         <a href="#">About</a>
