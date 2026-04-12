@@ -3,7 +3,6 @@
 session_start();
 include "db.php";
 
-/* ✅ DELETE ITEM */
 if(isset($_GET['delete_id']))
 {
     $id = $_GET['delete_id'];

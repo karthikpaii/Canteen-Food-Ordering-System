@@ -14,7 +14,7 @@ if (!$result) {
 session_start();
 include "db.php";
 
-/* ✅ ORDER LOGIC (same page) */
+
 if(isset($_GET['menu_id']) && isset($_SESSION['user_id']))
 {
     $user_id = $_SESSION['user_id'];
@@ -24,13 +24,13 @@ if(isset($_GET['menu_id']) && isset($_SESSION['user_id']))
                VALUES ('$user_id','$menu_id','pending')";
 
     if(mysqli_query($conn,$insert)){
-        $message = "Item added successfully ✅";
+        $message = "Item added successfully";
     } else {
-        $message = "Error adding item ❌";
+        $message = "Error adding item ";
     }
 }
 
-/* FETCH ITEMS */
+
 $sql = "SELECT * FROM menu_items";
 $result = mysqli_query($conn, $sql);
 
@@ -62,7 +62,7 @@ body{
     background:#f4f6f9;
 }
 
-/* Sidebar (same as dashboard) */
+
 .sidebar{
     width:250px;
     height:100vh;

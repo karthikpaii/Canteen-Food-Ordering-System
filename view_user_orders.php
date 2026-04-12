@@ -188,7 +188,7 @@ tr:hover{
     background:#f1f1f1;
 }
 
-/* ✅ FIXED IMAGE SIZE */
+
 td img{
     width:70px;
     height:50px;

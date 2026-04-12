@@ -183,13 +183,13 @@ footer {
 <header class="header">
     <h1>🍽️ Order Your Favourite Item</h1>
 </header>
-<?php if(isset($_GET['added_message'])){
+<!-- <?php if(isset($_GET['added_message'])){
                 
                 $message=$_GET['added_message'];
                 ?>
                 <p> <?php echo $message; ?></p>
                 
-                <?php } ?>
+                <?php } ?> -->
 <section class="product">
 
 <?php 

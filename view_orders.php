@@ -171,7 +171,6 @@ td img{
     border-radius:5px;
 }
 
-/* Status Styling */
 .status{
     padding:5px 10px;
     border-radius:10px;
@@ -207,7 +206,7 @@ td img{
     background:#00c6ff;
 }
 
-/* Delivered Fix */
+
 .delivered{
     background:green;
 }
