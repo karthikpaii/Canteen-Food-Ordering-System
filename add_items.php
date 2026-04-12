@@ -184,6 +184,32 @@ body{
     text-align:center;
     margin-bottom:10px;
 }
+
+.header{
+    position:fixed;
+    left:250px;
+    top:0;
+    width:calc(100% - 250px);
+    height:60px;
+    background:white;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 20px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+.header h2{
+    color:#333;
+}
+
+.header a{
+    text-decoration:none;
+    color:white;
+    background:linear-gradient(45deg,#ff416c,#ff4b2b);
+    padding:8px 15px;
+    border-radius:20px;
+}
 </style>
 </head>
 
@@ -195,10 +221,12 @@ body{
     <a href="admin_dashboard.php">Dashboard</a>
     <a href="add_items.php">Add Menu Items</a>
     <a href="view_items.php">View Menu Items</a>
+    <a href="view_orders.php">View Orders</a>
 </div>
 
 <!-- Header -->
 <div class="header">
+    <h2>Pallakki Canteen</h2>
     <a href="logout.php">Logout</a>
 </div>
 

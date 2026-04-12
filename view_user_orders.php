@@ -5,9 +5,13 @@ include "db.php";
 
 if(isset($_SESSION['user_id']))
 {
-    if($_SESSION['user_type']=="admin")
+    if($_SESSION['user_id'])
     {
-        $sql = "SELECT 
+        if($_SESSION['user_type']=="user")
+        {
+            $user_id = $_SESSION['user_id'];
+
+            $sql = "SELECT 
                 users.id AS user_id,
                 users.name AS user_name,
                 users.email,
@@ -25,34 +29,39 @@ if(isset($_SESSION['user_id']))
 
                 FROM orders 
                 JOIN users ON orders.customer_id = users.id  
-                JOIN menu_items ON orders.item_id = menu_items.id";
+                JOIN menu_items ON orders.item_id = menu_items.id
+                WHERE orders.customer_id='$user_id'";
 
-        $result = mysqli_query($conn, $sql);
+            $result = mysqli_query($conn, $sql);
 
-        if(!$result)
-        {
-            die("SQL Error: " . mysqli_error($conn));
+            if(!$result)
+            {
+                die("SQL Error: " . mysqli_error($conn));
+            }
         }
-    }
 
-    if($_SESSION['user_type']=="user")
-    {
-        header("Location:user_dashboard.php"); 
+        if($_SESSION['user_type']=="admin")
+        {
+            header("Location:admin_dashboard.php"); 
+            exit();
+        } 
+    }
+    else{
+        header("Location:login.php");
         exit();
-    } 
+    }
 }
 else{
     header("Location:login.php");
     exit();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>View Orders</title>
+<title>User Orders</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
@@ -64,6 +73,7 @@ else{
     font-family:'Poppins',sans-serif;
 }
 
+/* Body */
 body{
     display:flex;
     background:#f4f6f9;
@@ -99,7 +109,6 @@ body{
     padding-left:30px;
 }
 
-/* Header */
 .header{
     position:fixed;
     left:250px;
@@ -134,7 +143,7 @@ body{
     width:100%;
 }
 
-/* Table */
+/* Table Container */
 .table-container{
     background:white;
     padding:20px;
@@ -143,6 +152,7 @@ body{
     overflow-x:auto;
 }
 
+/* Table */
 table{
     width:100%;
     border-collapse:collapse;
@@ -164,14 +174,15 @@ tr:hover{
     background:#f1f1f1;
 }
 
+/* ✅ FIXED IMAGE SIZE */
 td img{
     width:70px;
     height:50px;
     object-fit:cover;
-    border-radius:5px;
+    border-radius:6px;
 }
 
-/* Status Styling */
+/* Status */
 .status{
     padding:5px 10px;
     border-radius:10px;
@@ -183,60 +194,33 @@ td img{
     background:orange;
 }
 
-.completed{
-    background:green;
-}
-
-.status-select{
-    padding:5px;
-    border-radius:5px;
-    margin-top:5px;
-}
-
-.update-btn{
-    background:#2a5298;
-    color:white;
-    border:none;
-    padding:5px 10px;
-    border-radius:6px;
-    cursor:pointer;
-    margin-top:5px;
-}
-
-.update-btn:hover{
-    background:#00c6ff;
-}
-
-/* Delivered Fix */
 .delivered{
     background:green;
-}
-
-.pending{
-    background:orange;
 }
 </style>
 </head>
 
 <body>
 
+<!-- Sidebar -->
 <div class="sidebar">
-    <h2>Admin Panel</h2>
-    <a href="admin_dashboard.php">Dashboard</a>
-    <a href="add_items.php">Add Menu Items</a>
-    <a href="view_items.php">View Menu Items</a>
-    <a href="view_orders.php">View Orders</a>
+    <h2>User Panel</h2>
+    <a href="user_dashboard.php">Dashboard</a>
+    <a href="view_user_orders.php">View Orders</a>
+    <a href="items.php">Items</a>
 </div>
 
+<!-- Header -->
 <div class="header">
-    <h2>Pallakki Canteen</h2>
+     <h2> Pallakki Canteen</h2>
     <a href="logout.php">Logout</a>
 </div>
 
+<!-- Main -->
 <div class="main">
 
 <div class="table-container">
-<h3>Orders List</h3>
+<h3>Your Orders</h3>
 
 <table>
 <thead>
@@ -280,21 +264,10 @@ while($row = mysqli_fetch_assoc($result)) {
 
     <td><?php echo $row['order_id'];?></td>
     <td>
-    <span class="status <?php echo strtolower($row['status']); ?>">
-        <?php echo $row['status']; ?>
-    </span>
-
-    <form action="update_item_status.php" method="post" style="margin-top:5px;">
-        <input type="hidden" name="order_id" value="<?php echo $row['order_id']; ?>">
-
-        <select name="status" class="status-select">
-            <option value="pending" <?php if($row['status']=="pending") echo "selected"; ?>>Pending</option>
-            <option value="delivered" <?php if($row['status']=="delivered") echo "selected"; ?>>Delivered</option>
-        </select>
-
-        <button type="submit" name="submit" class="update-btn">Update</button>
-    </form>
-</td>
+        <span class="status <?php echo strtolower($row['status']); ?>">
+            <?php echo ucfirst($row['status']); ?>
+        </span>
+    </td>
 </tr>
 
 <?php 

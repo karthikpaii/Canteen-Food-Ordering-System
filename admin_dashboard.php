@@ -84,10 +84,14 @@ body{
     height:60px;
     background:white;
     display:flex;
-    justify-content:flex-end;
+    justify-content:space-between;
     align-items:center;
     padding:0 20px;
     box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+.header h2{
+    color:#333;
 }
 
 .header a{
@@ -96,11 +100,6 @@ body{
     background:linear-gradient(45deg,#ff416c,#ff4b2b);
     padding:8px 15px;
     border-radius:20px;
-    transition:0.3s;
-}
-
-.header a:hover{
-    background:linear-gradient(45deg,#00c6ff,#0072ff);
 }
 
 /* Main Content */
@@ -151,10 +150,12 @@ body{
     <a href="admin_dashboard.php">Dashboard</a>
     <a href="add_items.php">Add Menu Items</a>
     <a href="view_items.php">View Menu Items</a>
+    <a href="view_orders.php">View Orders</a>
 </div>
 
 <!-- Header -->
 <div class="header">
+     <h2>Pallakki Canteen</h2>
     <a href="logout.php">Logout</a>
 </div>
 
@@ -179,11 +180,11 @@ body{
         </div>
     </div>
 
-    <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente ut, recusandae illum assumenda voluptatem alias id repellendus...
-    </p>
+    
 
 </div>
-
+<p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente ut, recusandae illum assumenda voluptatem alias id repellendus...
+    </p>
 </body>
 </html>

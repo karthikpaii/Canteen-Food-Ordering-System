@@ -145,6 +145,17 @@ h2{
     color:white;
     text-align:center;
 }
+
+footer {
+            background: #0d47a1;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 14px;
+        }
 </style>
 </head>
 
@@ -152,16 +163,18 @@ h2{
 
 <nav class="navbar">
     <ul>
-        <li><a href="index.php">Home</a></li>
+        <li><a href="index.php"><h2>PALAKKI CANTEEN</h2></a></li>
     </ul>
 
     <ul>
         <?php if(!isset($_SESSION['user_id'])) {?>
+        <li><a href="index.php">Home</a></li>
         <li><a href="login.php">Login</a></li>
         <li><a href="register.php">Register</a></li>
         <?php }?>
 
         <?php if(isset($_SESSION['user_id'])) {?>
+        <li><a href="index.php">Home</a></li>
         <li><a href="user_dashboard.php">Dashboard</a></li>
         <?php } ?>
     </ul>
@@ -206,6 +219,8 @@ if (mysqli_num_rows($result) > 0) {
 ?>
 
 </section>
-
+<footer>
+    © 2026 Pallakki Canteens | All Rights Reserved
+</footer>
 </body>
 </html>

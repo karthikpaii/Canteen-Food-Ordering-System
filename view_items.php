@@ -1,34 +1,55 @@
 <?php 
 
 session_start();
-
 include "db.php";
+
+/* ✅ DELETE ITEM */
+if(isset($_GET['delete_id']))
+{
+    $id = $_GET['delete_id'];
+
+    // Optional: delete image also
+    $getImg = mysqli_query($conn,"SELECT image FROM menu_items WHERE id='$id'");
+    $imgData = mysqli_fetch_assoc($getImg);
+
+    if($imgData){
+        $imgPath = "image/" . $imgData['image'];
+        if(file_exists($imgPath)){
+            unlink($imgPath); // delete image file
+        }
+    }
+
+    $delete = "DELETE FROM menu_items WHERE id='$id'";
+    mysqli_query($conn,$delete);
+
+    header("Location:view_items.php?msg=Item Deleted Successfully");
+    exit();
+}
+
+/* FETCH ITEMS */
 if(isset($_SESSION['user_id']))
 {
     if($_SESSION['user_type']=="admin")
     {
         $sql="SELECT * from menu_items";
-
         $result=mysqli_query($conn,$sql);
 
         if(!$result)
         {
-            echo "Error!: {$conn->error}";
-        }
-        else{
-
+            die("Error!: {$conn->error}");
         }
     }
 
     if($_SESSION['user_type']=="user")
     {
         header("Location:user_dashboard.php"); 
+        exit();
     } 
 }
 else{
     header("Location:login.php");
+    exit();
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -83,7 +104,6 @@ body{
     padding-left:30px;
 }
 
-/* Header */
 .header{
     position:fixed;
     left:250px;
@@ -92,10 +112,14 @@ body{
     height:60px;
     background:white;
     display:flex;
-    justify-content:flex-end;
+    justify-content:space-between;
     align-items:center;
     padding:0 20px;
     box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+.header h2{
+    color:#333;
 }
 
 .header a{
@@ -104,11 +128,6 @@ body{
     background:linear-gradient(45deg,#ff416c,#ff4b2b);
     padding:8px 15px;
     border-radius:20px;
-    transition:0.3s;
-}
-
-.header a:hover{
-    background:linear-gradient(45deg,#00c6ff,#0072ff);
 }
 
 /* Main */
@@ -177,10 +196,12 @@ td img{
     <a href="admin_dashboard.php">Dashboard</a>
     <a href="add_items.php">Add Menu Items</a>
     <a href="view_items.php">View Menu Items</a>
+     <a href="view_orders.php">View Orders</a>
 </div>
 
 <!-- Header -->
 <div class="header">
+     <h2>Pallakki Canteen</h2>
     <a href="logout.php">Logout</a>
 </div>
 
@@ -189,7 +210,11 @@ td img{
 
     <div class="table-container">
         <div class="title">Menu Items</div>
-
+<?php if(isset($_GET['msg'])){ ?>
+    <p style="color:green; margin-bottom:10px;">
+        <?php echo $_GET['msg']; ?>
+    </p>
+<?php } ?>
         <table>
             <thead>
                 <tr>
@@ -197,25 +222,42 @@ td img{
                     <th>Image</th>
                     <th>Item Name</th>
                     <th>Item Price</th>
-                    <th>Category</th>
+                    <th>Category</th>    
+                    <th>Action</th>
                 </tr>
             </thead>
 
             <tbody>
 
-            <?php while($row=mysqli_fetch_assoc($result)) { ?>
-                
-            <tr>
-                <td><?php echo $row['id'];?></td>
-                <td><img src="image/<?php echo $row['image'];?>"></td>
-                <td><?php echo $row['name'];?></td>
-                <td>₹<?php echo $row['price'];?></td>
-                <td><?php echo $row['category'];?></td>
-            </tr>
+<?php 
+if($result && mysqli_num_rows($result) > 0){
+while($row=mysqli_fetch_assoc($result)) { 
+?>
 
-            <?php } ?>
+<tr>
+    <td><?php echo $row['id'];?></td>
+    <td><img src="image/<?php echo $row['image'];?>"></td>
+    <td><?php echo $row['name'];?></td>
+    <td>₹<?php echo $row['price'];?></td>
+    <td><?php echo $row['category'];?></td>
 
-            </tbody>
+    <td>
+        <a href="view_items.php?delete_id=<?php echo $row['id']; ?>" 
+           onclick="return confirm('Are you sure to delete this item?')"
+           style="background:red; color:white; padding:5px 10px; border-radius:5px; text-decoration:none;">
+           Delete
+        </a>
+    </td>
+</tr>
+
+<?php 
+}
+}else{
+    echo "<tr><td colspan='6'>No items found</td></tr>";
+}
+?>
+
+</tbody>
         </table>
     </div>
 
