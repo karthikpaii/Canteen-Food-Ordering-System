@@ -18,22 +18,28 @@ if (!$result) {
 <title>Menu</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
-.header{
-    background:lightcoral;
-    padding:40px;
-    text-align:center;
+/* Background */
+body{
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    min-height:100vh;
+    color:#333;
 }
 
+/* Navbar */
 .navbar{
     display:flex;
-    padding:10px;
-    background:gray;
+    padding:15px 40px;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(10px);
     justify-content:space-between;
     align-items:center;
 }
@@ -48,49 +54,96 @@ if (!$result) {
 
 .navbar a{
     text-decoration:none;
-    padding:10px;
+    padding:10px 15px;
     color:white;
-}
-
-.navbar a:hover{
-    color:gold;
-}
-
-.product{
-    display:flex;
-    flex-wrap:wrap;
-    gap:20px;
-    padding:20px;
-    justify-content:center;
-}
-
-.card{
-    border:1px solid #ddd;
-    padding:15px;
-    text-align:center;
-    border-radius:8px;
+    font-weight:500;
     transition:0.3s;
 }
 
-.card img{
-    width:200px;
-    height:150px;
-    object-fit:cover;
-    border-radius:5px;
+.navbar a:hover{
+    color:#ffd700;
+}
+
+/* Header */
+.header{
+    text-align:center;
+    padding:50px 20px;
+    color:white;
+}
+
+.header h1{
+    font-size:2.5rem;
+    margin-bottom:10px;
+}
+
+/* Product Section */
+.product{
+    display:flex;
+    flex-wrap:wrap;
+    gap:25px;
+    padding:30px;
+    justify-content:center;
+}
+
+/* Card Design */
+.card{
+    width:260px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(12px);
+    border-radius:15px;
+    padding:15px;
+    text-align:center;
+    color:white;
+    box-shadow:0 8px 25px rgba(0,0,0,0.2);
+    transition:0.3s;
 }
 
 .card:hover{
-    transform:translateY(-5px);
+    transform:translateY(-10px) scale(1.03);
 }
 
+/* Image */
+.card img{
+    width:100%;
+    height:160px;
+    object-fit:cover;
+    border-radius:10px;
+    margin-bottom:10px;
+}
+
+/* Title */
+.card h3{
+    margin:10px 0;
+    font-size:1.2rem;
+}
+
+/* Price */
+.card p{
+    font-size:1.1rem;
+    font-weight:600;
+    margin-bottom:10px;
+}
+
+/* Button */
 .card a{
     text-decoration:none;
     display:inline-block;
-    background-color:red;
-    padding:10px;
+    background: linear-gradient(45deg, #ff416c, #ff4b2b);
+    padding:10px 15px;
     color:white;
-    margin-top:10px;
-    border-radius:5px;
+    border-radius:25px;
+    font-size:0.9rem;
+    transition:0.3s;
+}
+
+.card a:hover{
+    background: linear-gradient(45deg, #00c6ff, #0072ff);
+}
+
+/* No Items */
+h2{
+    color:white;
+    text-align:center;
 }
 </style>
 </head>
@@ -115,8 +168,7 @@ if (!$result) {
 </nav>
 
 <header class="header">
-    <h1>Order Your Favourite Item</h1>
-    <hr>
+    <h1>🍽️ Order Your Favourite Item</h1>
 </header>
 
 <section class="product">
@@ -126,15 +178,17 @@ if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
 ?>
         <div class="card">
-    <img src="image/<?php echo $row['image']; ?>" width="200">
-        <h3><?php echo htmlspecialchars($row['name']); ?></h3>
+            <img src="image/<?php echo $row['image']; ?>">
+            <h3><?php echo htmlspecialchars($row['name']); ?></h3>
             <p>₹<?php echo htmlspecialchars($row['price']); ?></p>
+
             <?php if(isset($_SESSION['user_id'])){?>
-            <a href="#">Order Now</a>
-           <?php } ?>
+                <a href="#">Order Now</a>
+            <?php } ?>
+
             <?php if(!isset($_SESSION['user_id'])){?>
-            <a href="login.php">Order Now</a>
-           <?php } ?>
+                <a href="login.php">Order Now</a>
+            <?php } ?>
         </div>
 
 <?php 

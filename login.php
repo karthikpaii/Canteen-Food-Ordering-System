@@ -194,7 +194,7 @@ if (isset($_POST['submit'])) {
 <header>
     <div class="logo">🍽️ Canteen Management System</div>
     <nav>
-        <a href="#">Home</a>
+        <a href="index.php">Home</a>
         <a href="#">About</a>
         <a href="#">Privacy Policy</a>
         <a href="#">Contact</a>

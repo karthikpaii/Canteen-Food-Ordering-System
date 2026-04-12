@@ -8,7 +8,6 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-
 if ($_SESSION['user_type'] != "admin") {
     echo "Access Denied!";
     exit();
@@ -35,7 +34,6 @@ if (isset($_POST['submit'])) {
     if (!$result) {
         echo "Error!: {$conn->error}";
     } else {
-
         if (move_uploaded_file($temp_location, $target_file)) {
             $message="Item added successfully";
         } else {
@@ -47,122 +45,193 @@ if (isset($_POST['submit'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        *{
-            padding:0;
-            margin:0;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Items</title>
 
-        .header{
-            padding:30px;
-            background:black;
-            color:white;
-            text-align:right;
-;
-        }
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-        .sidebar{
-            background:black;
-            color:white;
-            position:fixed;
-            top:0;
-            height:100%;
-            width:20%;
-            border:1px solid blue;
-            text-align:center;
-        }
+*{
+    padding:0;
+    margin:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
 
-        .sidebar a{
-            text-decoration:none;
-            display:block;
-            padding:30px 10px;
-            margin:0;
-            color:white;
-            
-        }
+body{
+    display:flex;
+    background:#f4f6f9;
+}
 
-        .sidebar  a:hover{
-            background:green;   
-        }
+/* Sidebar */
+.sidebar{
+    width:250px;
+    height:100vh;
+    background:linear-gradient(180deg,#1e3c72,#2a5298);
+    color:white;
+    position:fixed;
+    top:0;
+    left:0;
+    padding-top:20px;
+    box-shadow:2px 0 10px rgba(0,0,0,0.2);
+}
 
-        .header a{
-            text-decoration:none;
-            color:white;
-            padding:20px;
-            background:red;
-        }
+.sidebar h2{
+    text-align:center;
+    margin-bottom:30px;
+}
 
-        .main{
-            margin-left:300px;
-            margin-top:20px;l
-        }
+.sidebar a{
+    text-decoration:none;
+    display:block;
+    padding:15px 20px;
+    color:white;
+    transition:0.3s;
+}
 
-        .main form
-        {
-            background:lightcyan;
-            padding:30px;
-            margin-right:20px;
-            text-align:center;
-        }
+.sidebar a:hover{
+    background:rgba(255,255,255,0.2);
+    padding-left:30px;
+}
 
-        .main input{
-            margin-left:200px;
-            margin-top:10px;
-            padding:20px;
-            border:2px solid blue; 
-            display:block;
-            
-        }
-        .submitBtn
-        {
-            background:blue;
-            color:white;
-        }
+/* Header */
+.header{
+    position:fixed;
+    left:250px;
+    top:0;
+    width:calc(100% - 250px);
+    height:60px;
+    background:white;
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    padding:0 20px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
 
-    </style>
+.header a{
+    text-decoration:none;
+    color:white;
+    background:linear-gradient(45deg,#ff416c,#ff4b2b);
+    padding:8px 15px;
+    border-radius:20px;
+    transition:0.3s;
+}
+
+.header a:hover{
+    background:linear-gradient(45deg,#00c6ff,#0072ff);
+}
+
+/* Main */
+.main{
+    margin-left:250px;
+    margin-top:80px;
+    padding:20px;
+    width:100%;
+}
+
+/* Form Card */
+.form-container{
+    max-width:500px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Form Title */
+.form-container h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+/* Inputs */
+.form-container input{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:1px solid #ccc;
+    border-radius:8px;
+    outline:none;
+    transition:0.3s;
+}
+
+.form-container input:focus{
+    border-color:#2a5298;
+}
+
+/* Button */
+.submitBtn{
+    background:linear-gradient(45deg,#1e3c72,#2a5298);
+    color:white;
+    border:none;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.submitBtn:hover{
+    background:linear-gradient(45deg,#00c6ff,#0072ff);
+}
+
+/* Success Message */
+.message{
+    background:#d4edda;
+    color:#155724;
+    padding:10px;
+    border-radius:6px;
+    text-align:center;
+    margin-bottom:10px;
+}
+</style>
 </head>
+
 <body>
-    <div class="header">
-        <a href="logout.php">Log Out</a>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <h2>Admin Panel</h2>
+    <a href="admin_dashboard.php">Dashboard</a>
+    <a href="add_items.php">Add Menu Items</a>
+    <a href="view_items.php">View Menu Items</a>
+</div>
+
+<!-- Header -->
+<div class="header">
+    <a href="logout.php">Logout</a>
+</div>
+
+<!-- Main -->
+<div class="main">
+    <div class="form-container">
+
+        <h2>Add Menu Item</h2>
+
+        <form method="post" action="add_items.php" enctype="multipart/form-data">
+
+        <?php if(isset($message)){ ?>
+            <p class="message"><?php echo $message; ?></p>
+        <?php } ?>
+
+        <label>Upload Product Image</label>
+        <input type="file" name="image" required>
+
+        <label>Enter Product Name</label>
+        <input type="text" name="name" required>
+
+        <label>Enter Product Price</label>
+        <input type="number" name="price" step="any" required>
+
+        <label>Enter Product Category</label>
+        <input type="text" name="category" required>
+
+        <input class="submitBtn" type="submit" name="submit" value="Add Items">
+
+        </form>
+
     </div>
-
-    <div class="sidebar">
-        <a href="admin_dashboard.php">Admin Dashboard</a>
-        <a href="add_items.php">Add Menu Items</a>
-        <a href="view_items.php">View Menu Items</a>
-    </div>
-
-
-    <div class="main">
-       <form method="post" action="add_items.php" enctype="multipart/form-data">
-
-       <?php if(isset($message)){
-        ?>
-        <p class="message"><?php echo $message;
-        ?></p>
-        <?php }?>
-    Upload Product Image  
-    <input type="file" name="image" required>
-
-    Enter Product Name  
-    <input type="text" name="name" required>
-
-    Enter Product Price  
-    <input type="number" name="price" step="any" required>
-
-    Enter Product Category  
-    <input type="text" name="category" required>
-
-    <input class="submitBtn" type="submit" name="submit" value="Add Items">
-
-</form>
-
-
-     </div>
-
+</div>
 
 </body>
 </html>
