@@ -32,4 +32,4 @@ A full-stack Canteen Management System developed with PHP and MySQL that allows 
 
 Watch the project in action:
 
-[![Watch the video](https://img.youtube.com/vi/D1f9Ck2ByTg/0.jpg)](https://youtu.be/D1f9Ck2ByTg)
+[![Watch the demo](https://img.youtube.com/vi/DUxjCVti7s4/0.jpg)](https://youtu.be/DUxjCVti7s4)
